@@ -1,19 +1,30 @@
 # Lung Cancer Prediction System
 
-A machine learning system for predicting lung cancer risk based on patient data.
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![Machine Learning](https://img.shields.io/badge/-Machine%20Learning-orange)
+![Health Tech](https://img.shields.io/badge/-Health%20Tech-brightgreen)
+
+A machine learning system that predicts lung cancer risk based on patient clinical features and symptoms.
 
 ## Features
-- Data exploration and visualization
-- Multiple machine learning models
-- Model evaluation and comparison
-- Interactive prediction interface
+
+- **Data Analysis**: Comprehensive EDA with visualizations
+- **Multiple Models**: 
+  - Random Forest
+  - Logistic Regression
+  - SVM
+  - XGBoost
+  - KNN
+  - Naive Bayes
+- **Model Evaluation**: 
+  - Accuracy, Precision, Recall metrics
+  - ROC & Precision-Recall curves
+  - Feature importance analysis
+- **Interactive Prediction**: CLI interface for manual predictions
 
 ## Installation
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
 
-## Usage
-Run the main script: `python src/main.py`
-
-## Data
-Place your dataset in `data/raw/lcs.csv`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/Lung-Cancer-Prediction-using-Machine-Learning.git
+   cd Lung-Cancer-Prediction-using-Machine-Learning
