@@ -1,9 +1,11 @@
+from src.config import TEST_SIZE, RANDOM_STATE
+TEST_SIZE = 0.2
+RANDOM_STATE = 42
 import pandas as pd
 from typing import Optional, Tuple, List
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
-from src.config import TEST_SIZE, RANDOM_STATE
 
 class DataPreprocessor:
     """Handles data loading and preprocessing"""
@@ -14,20 +16,20 @@ class DataPreprocessor:
         try:
             data = pd.read_csv(file_path)
             
-            # Standardize column names
+
             data.columns = data.columns.str.strip().str.upper().str.replace(' ', '_')
             
-            # Define binary columns and their mappings
+
             binary_cols = ['SMOKING', 'YELLOW_FINGERS', 'ANXIETY', 'PEER_PRESSURE',
                          'CHRONIC_DISEASE', 'FATIGUE', 'ALLERGY', 'WHEEZING',
                          'ALCOHOL_CONSUMING', 'COUGHING', 'SHORTNESS_OF_BREATH',
                          'SWALLOWING_DIFFICULTY', 'CHEST_PAIN']
             
-            # Convert binary columns to 0/1
+            # Converting binary columns to 0/1A
             for col in binary_cols:
                 data[col] = data[col].astype(str).str.strip().map({'2': 1, '1': 0, 'YES': 1, 'NO': 0}).astype(int)
             
-            # Convert gender and target to binary
+            # Converting gender and target to binary
             data['GENDER'] = data['GENDER'].astype(str).str.strip().str.upper().map({'M': 1, 'F': 0}).astype(int)
             data['LUNG_CANCER'] = data['LUNG_CANCER'].astype(str).str.strip().str.upper().map({'YES': 1, 'NO': 0}).astype(int)
             
@@ -45,11 +47,11 @@ class DataPreprocessor:
         y = data['LUNG_CANCER']
         feature_names = X.columns.tolist()
         
-        # Scale features
+    
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
         
-        # Split data
+
         X_train, X_test, y_train, y_test = train_test_split(
             X_scaled, y, 
             test_size=test_size, 
@@ -57,7 +59,7 @@ class DataPreprocessor:
             stratify=y
         )
         
-        # Handle class imbalance with SMOTE
+        # Handling class imbalance using SMOTE
         smote = SMOTE(random_state=random_state)
         X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
         

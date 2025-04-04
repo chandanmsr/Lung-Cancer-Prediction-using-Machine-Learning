@@ -4,7 +4,7 @@ COLOR_PALETTE = 'viridis'
 FIGURE_FACECOLOR = 'white'
 AXES_GRID = True
 GRID_ALPHA = 0.3
-DEFAULT_FIGSIZE = (12, 6)
+DEFAULT_FIGSIZE = (6, 3)
 
 # Model settings
 TEST_SIZE = 0.2

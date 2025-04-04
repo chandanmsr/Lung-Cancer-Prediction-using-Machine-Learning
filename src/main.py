@@ -23,30 +23,23 @@ class DataExplorer:
         print(tabulate(data.describe(), headers='keys', tablefmt='psql'))
         
         viz_data = data.copy()
-        viz_data['LUNG_CANCER_STR'] = viz_data['LUNG_CANCER'].map({0: 'No Cancer', 1: 'Cancer'})
+        viz_data['.'] = viz_data['LUNG_CANCER'].map({1: 'No Cancer', 0: 'Cancer'})
         
         # Plot class distribution
         DataVisualizer.plot_class_distribution(viz_data['LUNG_CANCER'])
         
         # Plot feature distributions
-        DataVisualizer.plot_distributions(viz_data, 'LUNG_CANCER_STR')
-        DataVisualizer.plot_boxplots(viz_data, 'LUNG_CANCER_STR')
+        DataVisualizer.plot_distributions(viz_data, '.')
+        DataVisualizer.plot_boxplots(viz_data, '.')
         DataVisualizer.plot_correlation_heatmap(data, 'LUNG_CANCER')
         
-        # Plot top correlated features
-        top_features = data.corr()['LUNG_CANCER'].abs().sort_values(ascending=False).index[1:6]
-        sns.pairplot(data, vars=top_features, hue='LUNG_CANCER',
-                    palette={0: 'dodgerblue', 1: 'crimson'},
-                    diag_kind='kde', corner=True)
-        plt.suptitle('Pairplot of Top Correlated Features', y=1.02)
-        plt.show()
         
         # Plot age distribution by gender
-        plt.figure(figsize=(12, 6))
-        sns.violinplot(data=viz_data, x='GENDER', y='AGE', hue='LUNG_CANCER_STR',
+        plt.figure(figsize=(6, 3))
+        sns.violinplot(data=viz_data, x='GENDER', y='AGE', hue='.',
                       split=True, palette={'No Cancer':'dodgerblue', 'Cancer':'crimson'})
         plt.title('Age Distribution by Gender and Cancer Status')
-        plt.xlabel('Gender (0=Female, 1=Male)')
+        plt.xlabel('Gender (1=Female, 0=Male)')
         plt.ylabel('Age')
         plt.legend(title='Diagnosis')
         plt.show()
